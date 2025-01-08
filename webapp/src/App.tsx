@@ -1,7 +1,10 @@
-import "./App.css";
-
 function App() {
-  return <>FUCK</>;
+  return (
+    <div>
+      Yes
+      {state}
+    </div>
+  );
 }
 
 export default App;
