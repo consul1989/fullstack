@@ -1,10 +1,5 @@
 function App() {
-  return (
-    <div>
-      Yes
-      {state}
-    </div>
-  );
+  return <div>Yes</div>;
 }
 
 export default App;
