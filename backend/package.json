@@ -1,7 +1,6 @@
 {
   "name": "backend",
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "ts-node-dev --rs ./src/index.ts",
     "build": "rimraf ./dist && tsc --build ./tsconfig.json",
