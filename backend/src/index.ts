@@ -1,4 +1,6 @@
 import express from 'express';
+import * as trpcExpress from '@trpc/server/adapters/express';
+import { trpcRouter } from './trpc';
 
 const expressApp = express();
 
@@ -6,14 +8,12 @@ expressApp.get('/ping', (req, res) => {
   res.send('pong');
 });
 
-expressApp.get('/ideas', (req, res) => {
-  res.send([
-    {
-      id: 1,
-      title: 'Fuck',
-    },
-  ]);
-});
+expressApp.use(
+  '/trpc',
+  trpcExpress.createExpressMiddleware({
+    router: trpcRouter,
+  })
+);
 
 const PORT = 3000;
 
