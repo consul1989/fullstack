@@ -2,7 +2,7 @@ import { initTRPC } from '@trpc/server';
 
 const trpc = initTRPC.create();
 
-export const trpsRouter = trpc.router({
+export const trpcRouter = trpc.router({
   getIdeas: trpc.procedure.query(() => {
     return {
       ideas: [
@@ -15,4 +15,4 @@ export const trpsRouter = trpc.router({
   }),
 });
 
-export type TrpcRouter = typeof trpsRouter;
+export type TrpcRouter = typeof trpcRouter;
