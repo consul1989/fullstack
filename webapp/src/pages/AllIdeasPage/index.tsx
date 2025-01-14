@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+
+import { getViewIdeaRoute } from '../../lib/routes';
 import { trpc } from '../../lib/trpc';
 
 export const AllIdeasPage = () => {
@@ -17,7 +20,9 @@ export const AllIdeasPage = () => {
       <ul>
         {data?.ideas.map((idea) => (
           <div key={idea.nick}>
-            <h4>{idea.name}</h4>
+            <h4>
+              <Link to={getViewIdeaRoute({ ideaNick: idea.nick })}>{idea.name}</Link>
+            </h4>
             <div>{idea.description}</div>
           </div>
         ))}

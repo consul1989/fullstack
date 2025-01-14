@@ -7,14 +7,19 @@ export const trpcRouter = trpc.router({
     return {
       ideas: [
         {
-          nick: 1,
+          nick: 'nick-1',
           name: 'Name',
           description: 'Fuck',
         },
         {
-          nick: 2,
+          nick: 'nick-2',
           name: 'Name 2',
           description: 'Fuck 2',
+        },
+        {
+          nick: 'nick-3',
+          name: 'Name 3',
+          description: 'Fuck 3',
         },
       ],
     };
