@@ -1,7 +1,7 @@
 import express from 'express';
-import * as trpcExpress from '@trpc/server/adapters/express';
-import { trpcRouter } from './trpc';
+import { trpcRouter } from './router';
 import cors from 'cors';
+import { applyTrpcExpressApp } from './lib/trpc';
 
 const expressApp = express();
 
@@ -11,12 +11,7 @@ expressApp.get('/ping', (req, res) => {
   res.send('pong');
 });
 
-expressApp.use(
-  '/trpc',
-  trpcExpress.createExpressMiddleware({
-    router: trpcRouter,
-  })
-);
+applyTrpcExpressApp(expressApp, trpcRouter);
 
 const PORT = 3000;
 
