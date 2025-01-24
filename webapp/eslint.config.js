@@ -30,6 +30,11 @@ export default tseslint.config(
           allowSeparatedGroups: false,
         },
       ],
+      // check the syntax
+      // '@typescript-eslint/no-restricted-imports': [
+      //   'error',
+      //   { paths: ['@ideanick/backend/**', '!@ideanick/backend/**/', '!@ideanick/backend/**/input'] },
+      // ],
     },
   }
 );
