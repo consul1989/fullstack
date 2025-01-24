@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type FormikProps } from 'formik';
 
 export const Input = ({ name, label, formik }: { name: string; label: string; formik: FormikProps<any> }) => {
@@ -19,6 +20,7 @@ export const Input = ({ name, label, formik }: { name: string; label: string; fo
         }}
         value={value}
         id={name}
+        disabled={formik.isSubmitting}
       />
       {!!touched && !!error && <div style={{ color: 'red' }}>{error}</div>}
     </div>

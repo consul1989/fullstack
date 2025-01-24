@@ -1,5 +1,6 @@
 import { type FormikProps } from 'formik';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Textarea = ({ name, label, formik }: { name: string; label: string; formik: FormikProps<any> }) => {
   const value = formik.values[name];
   const error = formik.errors[name] as string | undefined;
@@ -19,6 +20,7 @@ export const Textarea = ({ name, label, formik }: { name: string; label: string;
         value={value}
         name={name}
         id={name}
+        disabled={formik.isSubmitting}
       />
       {!!touched && !!error && <div style={{ color: 'red' }}>{error}</div>}
     </div>
