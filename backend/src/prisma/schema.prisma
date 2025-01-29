@@ -7,6 +7,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// after adding a new field to a Model or making any updates to it, you need to migrate prisma
+// "pmd": "prisma migrate dev"
+// 'pnpm b pmd'
 model Idea {
   id          String @id @default(uuid())
   nick        String @unique
@@ -15,3 +18,4 @@ model Idea {
   text        String
   createdAt DateTime @default(now())
 }
+
