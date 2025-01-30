@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import SuperJSON from 'superjson';
 import type { TrpcRouter } from '@ideanick/backend/src/router';
 import { createTRPCReact } from '@trpc/react-query';
 import { httpBatchLink } from '@trpc/client';
@@ -16,6 +17,7 @@ const queryClient = new QueryClient({
 });
 
 const trpcClient = trpc.createClient({
+  transformer: SuperJSON,
   links: [
     httpBatchLink({
       url: 'http://localhost:3000/trpc',
