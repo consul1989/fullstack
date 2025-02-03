@@ -18,7 +18,7 @@ void (async () => {
       res.send('pong');
     });
 
-    applyTrpcExpressApp(expressApp, ctx, trpcRouter);
+    await applyTrpcExpressApp(expressApp, ctx, trpcRouter);
 
     const PORT = 3000;
 
