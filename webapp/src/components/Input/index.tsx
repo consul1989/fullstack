@@ -33,7 +33,6 @@ export const Input = ({
         })}
         style={{ maxWidth }}
         type={type}
-        type="text"
         onChange={(e) => {
           void formik.setFieldValue(name, e.target.value);
         }}
