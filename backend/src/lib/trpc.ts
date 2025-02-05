@@ -1,12 +1,22 @@
-import { initTRPC } from '@trpc/server';
+import { initTRPC, type inferAsyncReturnType } from '@trpc/server';
 import type { Express } from 'express';
 import type { TrpcRouter } from '../router';
+import { type ExpressRequest } from '../utils/types';
 import * as trpcExpress from '@trpc/server/adapters/express';
 import { AppContext } from './ctx';
 import { expressHandler } from 'trpc-playground/handlers/express';
 import superjson from 'superjson';
 
-export const trpc = initTRPC.context<AppContext>().create({
+const getCreateTrpcContext =
+  (appContext: AppContext) =>
+  ({ req }: trpcExpress.CreateExpressContextOptions) => ({
+    ...appContext,
+    me: (req as ExpressRequest).user || null,
+  });
+
+type TrpcContext = inferAsyncReturnType<ReturnType<typeof getCreateTrpcContext>>;
+
+export const trpc = initTRPC.context<TrpcContext>().create({
   transformer: superjson,
 });
 
@@ -15,7 +25,7 @@ export const applyTrpcExpressApp = async (expressApp: Express, appContext: AppCo
     '/trpc',
     trpcExpress.createExpressMiddleware({
       router: trpcRouter,
-      createContext: () => appContext,
+      createContext: getCreateTrpcContext(appContext),
     })
   );
 

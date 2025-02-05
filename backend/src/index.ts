@@ -3,6 +3,7 @@ import { trpcRouter } from './router';
 import cors from 'cors';
 import { applyTrpcExpressApp } from './lib/trpc';
 import { AppContext, createAppContext } from './lib/ctx';
+import { applyPassportToExpressApp } from './lib/passport';
 
 void (async () => {
   let ctx: AppContext | null = null;
@@ -18,6 +19,7 @@ void (async () => {
       res.send('pong');
     });
 
+    applyPassportToExpressApp(expressApp, ctx);
     await applyTrpcExpressApp(expressApp, ctx, trpcRouter);
 
     const PORT = 3000;
