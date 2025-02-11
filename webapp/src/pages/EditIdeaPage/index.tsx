@@ -9,6 +9,7 @@ import { Textarea } from '../../components/Textarea';
 import type { TrpcRouterOutput } from '@ideanick/backend/src/router';
 import { trpc } from '../../lib/trpc';
 import { useForm } from '../../lib/form';
+import { useMe } from '../../lib/ctx';
 import { zUpdateIdeaTrpcInput } from '@ideanick/backend/src/router/updateIdea/input';
 
 function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
@@ -63,9 +64,10 @@ export const EditIdeaPage = () => {
   const getIdeaResult = trpc.getIdea.useQuery({
     ideaNick,
   });
-  const getMeResult = trpc.getMe.useQuery();
 
-  if (getIdeaResult.isLoading || getIdeaResult.isFetching || getMeResult.isLoading || getMeResult.isFetching) {
+  const me = useMe();
+
+  if (getIdeaResult.isLoading || getIdeaResult.isFetching) {
     return <span>Loading...</span>;
   }
 
@@ -73,16 +75,11 @@ export const EditIdeaPage = () => {
     return <span>Error: {getIdeaResult.error.message}</span>;
   }
 
-  if (getMeResult.isError) {
-    return <span>Error: {getMeResult.error.message}</span>;
-  }
-
   if (!getIdeaResult.data.idea) {
     return <span>Idea not found</span>;
   }
 
   const idea = getIdeaResult.data.idea;
-  const me = getMeResult.data.me;
 
   if (!me) {
     return <span>Only for authorized</span>;

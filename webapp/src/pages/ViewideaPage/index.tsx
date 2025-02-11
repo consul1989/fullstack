@@ -4,6 +4,7 @@ import { Segment } from '../../components/Segment';
 import css from './index.module.scss';
 import { format } from 'date-fns/format';
 import { trpc } from '../../lib/trpc';
+import { useMe } from '../../lib/ctx';
 import { useParams } from 'react-router-dom';
 
 export const ViewIdeaPage = () => {
@@ -12,9 +13,10 @@ export const ViewIdeaPage = () => {
   const getIdeaResult = trpc.getIdea.useQuery({
     ideaNick,
   });
-  const getMeResult = trpc.getMe.useQuery();
 
-  if (getIdeaResult.isLoading || getIdeaResult.isFetching || getMeResult.isLoading || getMeResult.isFetching) {
+  const me = useMe();
+
+  if (getIdeaResult.isLoading || getIdeaResult.isFetching) {
     return <span>Loading...</span>;
   }
 
@@ -22,16 +24,11 @@ export const ViewIdeaPage = () => {
     return <span>Error: {getIdeaResult.error.message}</span>;
   }
 
-  if (getMeResult.isError) {
-    return <span>Error: {getMeResult.error.message}</span>;
-  }
-
   if (!getIdeaResult.data.idea) {
     return <span>Idea not found</span>;
   }
 
   const idea = getIdeaResult.data.idea;
-  const me = getMeResult.data.me;
 
   return (
     <Segment title={idea.name} description={idea.description}>
