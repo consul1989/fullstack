@@ -4,14 +4,14 @@ import Cookies from 'js-cookie';
 import { FormItems } from '../../components/FormItems';
 import { Input } from '../../components/Input';
 import { Segment } from '../../components/Segment';
-import { getAllIdeasRoute } from '../../lib/routes';
 import { trpc } from '../../lib/trpc';
 import { useForm } from '../../lib/form';
-import { useNavigate } from 'react-router-dom';
+import { withPageWrapper } from '../../lib/pageWrapper';
 import { zSignInTrpcInput } from '@ideanick/backend/src/router/signIn/input';
 
-export const SignInPage = () => {
-  const navigate = useNavigate();
+export const SignInPage = withPageWrapper({
+  redirectAuthorized: true,
+})(() => {
   const trpcUtils = trpc.useContext();
 
   const signIn = trpc.signIn.useMutation();
@@ -27,7 +27,6 @@ export const SignInPage = () => {
       Cookies.set('token', token, { expires: 99999 });
 
       void trpcUtils.invalidate();
-      navigate(getAllIdeasRoute());
     },
     resetOnSuccess: false,
   });
@@ -44,4 +43,4 @@ export const SignInPage = () => {
       </form>
     </Segment>
   );
-};
+});

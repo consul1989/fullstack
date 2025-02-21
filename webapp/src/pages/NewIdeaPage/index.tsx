@@ -6,9 +6,12 @@ import { Segment } from '../../components/Segment';
 import { Textarea } from '../../components/Textarea';
 import { trpc } from '../../lib/trpc';
 import { useForm } from '../../lib/form';
+import { withPageWrapper } from '../../lib/pageWrapper';
 import { zCreateIdeaTrpcInput } from '@ideanick/backend/src/router/createIdea/input';
 
-export const NewIdeaPage = () => {
+export const NewIdeaPage = withPageWrapper({
+  authorizedOnly: true,
+})(() => {
   const createIdea = trpc.createIdea.useMutation();
 
   const { formik, buttonProps, alertProps } = useForm({
@@ -47,4 +50,4 @@ export const NewIdeaPage = () => {
       </form>
     </Segment>
   );
-};
+});
