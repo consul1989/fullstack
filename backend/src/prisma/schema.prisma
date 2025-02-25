@@ -18,12 +18,13 @@ model Idea {
   text        String
   createdAt   DateTime  @default(now())
   authorId    String
-  author      User     @relation(fields: [authorId], references: [id])
+  author      User      @relation(fields: [authorId], references: [id])
 }
 
 model User {
   id          String    @id @default(uuid())
   nick        String    @unique
+  name        String    @default("")
   password    String
   createdAt   DateTime  @default(now())
   ideas       Idea[]
