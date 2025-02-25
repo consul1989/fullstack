@@ -4,7 +4,7 @@ import { type AppContext, useAppContext } from './ctx';
 import React, { useEffect } from 'react';
 import { type UseTRPCQueryResult, type UseTRPCQuerySuccessResult } from '@trpc/react-query/shared';
 import { ErrorPageComponent } from '../components/ErrorPageComponent';
-import { NotFoundPage } from '../pages/NotFoundPage';
+import { NotFoundPage } from '../pages/other/NotFoundPage';
 import { getAllIdeasRoute } from './routes';
 import { useNavigate } from 'react-router-dom';
 
